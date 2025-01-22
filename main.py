@@ -13,6 +13,8 @@ class MyWidget(QMainWindow):
         self.initUi()
         
     def initUi(self) -> None:
+        self.changeButton.clicked.connect(self.add_coffee)
+        
         self.conn = sqlite3.connect("coffee.sqlite")
         self.cur = self.conn.cursor()
         
@@ -45,6 +47,21 @@ class MyWidget(QMainWindow):
                 self.coffeeTable.setItem(i, j, QTableWidgetItem(str(elem)))
 
         self.coffeeTable.resizeColumnsToContents()
+
+    def add_coffee(self) -> None:
+        self.add_coffee_widget = AddCoffeWidget(self)
+        self.add_coffee_widget.show()
+        
+
+class AddCoffeWidget(QMainWindow):
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        uic.loadUi("addEditCoffeeForm.ui", self)
+        
+        self.initUi()
+    
+    def initUi(self) -> None:
+        self.pushButton.clicked.connect()
 
 
 if __name__ == "__main__":
